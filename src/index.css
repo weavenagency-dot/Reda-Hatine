@@ -1,0 +1,345 @@
+@import "tailwindcss";
+
+:root {
+  --red-deep: #5e1d18;
+  --red-edge: #681d17;
+  --red-mid: #971d15;
+  --red-crimson: #b61c19;
+  --red-glow: #c51e17;
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Black-Curtain Opening (0–650 ms) + 1 800 ms Synchronized Intro Sequence
+   ========================================================================== */
+
+/* 0–180 ms: Small warm-white glow ignites inside #000000 at exact visor spot,
+   peaks as the ray opens (180–420 ms), then blends smoothly into the photo visor */
+@keyframes curtainVisorSpark {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.22);
+  }
+  26% {
+    opacity: 0.92;
+    transform: translate(-50%, -50%) scale(0.68);
+  }
+  58% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+}
+
+/* 180–650 ms: Reflection stretches diagonally toward bottom-left along the visor ray */
+@keyframes curtainRayStretch {
+  0% {
+    opacity: 0;
+    transform: translate(0, -50%) rotate(155deg) scaleX(0.06) scaleY(0.55);
+  }
+  28% {
+    opacity: 0.98;
+    transform: translate(0, -50%) rotate(155deg) scaleX(0.88) scaleY(1);
+  }
+  62% {
+    opacity: 0.85;
+    transform: translate(0, -50%) rotate(155deg) scaleX(1.08) scaleY(1.06);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, -50%) rotate(155deg) scaleX(1.12) scaleY(1);
+  }
+}
+
+/* 180–520 ms: Soft diagonal ray cutout opens the #000000 veil from glasses toward bottom-left */
+@keyframes curtainMaskRayOpen {
+  0% {
+    opacity: 0;
+    transform: rotate(155deg) scaleX(0.04) scaleY(0.25);
+  }
+  35% {
+    opacity: 1;
+    transform: rotate(155deg) scaleX(0.85) scaleY(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(155deg) scaleX(2.4) scaleY(2.2);
+  }
+}
+
+/* 210–650 ms: Soft radial aperture expands from visor -> glasses -> face -> crimson backdrop */
+@keyframes curtainMaskRadialOpen {
+  0% {
+    opacity: 0;
+    transform: scale(0.02);
+  }
+  22% {
+    opacity: 1;
+    transform: scale(0.22);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(0.68);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.55);
+  }
+}
+
+/* Final fade of the #000000 veil wrapper so zero trace remains at 650 ms */
+@keyframes curtainVeilClear {
+  0%,
+  72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes introPortraitScale {
+  0% {
+    transform: scale(1.035);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes introLineReveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes introFadeUpSoft {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes introTopSettle {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes introSlideFromRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(24px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ==========================================================================
+   Slide Transition (360 ms diagonal red light band + content entrance)
+   ========================================================================== */
+
+@keyframes slideLightSweep {
+  0% {
+    opacity: 0;
+    transform: translate3d(-120%, 0, 0) skewX(-24deg);
+  }
+  35% {
+    opacity: 0.65;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(145%, 0, 0) skewX(-24deg);
+  }
+}
+
+@keyframes slideTitleEnter {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideBodyEnter {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Active choreography classes */
+.anim-curtain-spark {
+  animation: curtainVisorSpark 680ms var(--ease-editorial) 0ms both;
+  will-change: transform, opacity;
+}
+
+.anim-curtain-ray {
+  animation: curtainRayStretch 470ms var(--ease-editorial) 180ms both;
+  will-change: transform, opacity;
+}
+
+.anim-mask-ray {
+  animation: curtainMaskRayOpen 420ms var(--ease-editorial) 180ms both;
+  transform-box: view-box;
+  will-change: transform, opacity;
+}
+
+.anim-mask-radial {
+  animation: curtainMaskRadialOpen 440ms var(--ease-editorial) 210ms both;
+  transform-box: view-box;
+  will-change: transform, opacity;
+}
+
+.anim-curtain-veil {
+  animation: curtainVeilClear 650ms linear 0ms both;
+  will-change: opacity;
+}
+
+.anim-portrait-scale {
+  animation: introPortraitScale 470ms var(--ease-editorial) 180ms both;
+  will-change: transform;
+}
+
+.anim-badge-enter {
+  animation: introFadeUpSoft 340ms var(--ease-settle) 540ms both;
+}
+
+.anim-title-line-1 {
+  animation: introLineReveal 400ms var(--ease-settle) 560ms both;
+}
+
+.anim-title-line-2 {
+  animation: introLineReveal 360ms var(--ease-settle) 710ms both;
+}
+
+.anim-para-1 {
+  animation: introFadeUpSoft 280ms var(--ease-settle) 940ms both;
+}
+
+.anim-para-2 {
+  animation: introFadeUpSoft 280ms var(--ease-settle) 1010ms both;
+}
+
+.anim-para-3 {
+  animation: introFadeUpSoft 280ms var(--ease-settle) 1080ms both;
+}
+
+.anim-top-logos {
+  animation: introTopSettle 340ms var(--ease-settle) 1080ms both;
+}
+
+.anim-top-nav {
+  animation: introTopSettle 320ms var(--ease-settle) 1150ms both;
+}
+
+.anim-top-plan {
+  animation: introTopSettle 300ms var(--ease-settle) 1230ms both;
+}
+
+.anim-top-start {
+  animation: introTopSettle 280ms var(--ease-settle) 1300ms both;
+}
+
+.anim-rail-1 {
+  animation: introSlideFromRight 430ms var(--ease-settle) 1240ms both;
+}
+
+.anim-rail-2 {
+  animation: introSlideFromRight 430ms var(--ease-settle) 1305ms both;
+}
+
+.anim-rail-3 {
+  animation: introSlideFromRight 430ms var(--ease-settle) 1370ms both;
+}
+
+.anim-slide-sweep {
+  animation: slideLightSweep 360ms var(--ease-editorial) both;
+  will-change: transform, opacity;
+}
+
+.anim-slide-title {
+  animation: slideTitleEnter 340ms var(--ease-settle) 40ms both;
+}
+
+.anim-slide-body {
+  animation: slideBodyEnter 340ms var(--ease-settle) 95ms both;
+}
+
+/* Accessible focus outline on crimson & dark backgrounds */
+.focus-ring {
+  outline: none;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(94, 29, 24, 0.72);
+}
+
+/* Reduced motion: immediately settle in final composition */
+@media (prefers-reduced-motion: reduce) {
+  .anim-curtain-spark,
+  .anim-curtain-ray,
+  .anim-mask-ray,
+  .anim-mask-radial,
+  .anim-curtain-veil,
+  .anim-portrait-scale,
+  .anim-badge-enter,
+  .anim-title-line-1,
+  .anim-title-line-2,
+  .anim-para-1,
+  .anim-para-2,
+  .anim-para-3,
+  .anim-top-logos,
+  .anim-top-nav,
+  .anim-top-plan,
+  .anim-top-start,
+  .anim-rail-1,
+  .anim-rail-2,
+  .anim-rail-3,
+  .anim-slide-sweep,
+  .anim-slide-title,
+  .anim-slide-body {
+    animation: none !important;
+    transition: none !important;
+  }
+}

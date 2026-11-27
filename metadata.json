@@ -1,0 +1,6 @@
+{
+  "name": "Marketing digital & storytelling",
+  "description": "Présentation interactive plein écran en français dédiée au marketing digital et au storytelling, avec séquence d'ouverture chorégraphiée, parcours en quatre écrans et agent Gemini de création de campagne.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
